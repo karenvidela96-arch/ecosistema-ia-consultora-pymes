@@ -14,9 +14,9 @@ espera la aprobación de una persona y recién entonces envía el contenido a Sl
 - Capturas de evidencia del flujo, las pruebas y el dashboard.
 
 ## Enlaces
-- Dashboard de control (público): PEGAR_ENLACE
-- Base Centro de Comando (solo lectura): PEGAR_ENLACE
-- Base RAG Consultora Pymes (solo lectura): PEGAR_ENLACE
+- Dashboard de control (público): (https://airtable.com/appO54phsT7dL0S3l/pag2LogV94qBLzd79)
+- Base Centro de Comando (solo lectura): (https://airtable.com/appO54phsT7dL0S3l/shrwqdsvMUyxDe2B6)
+- Base RAG Consultora Pymes (solo lectura): https://airtable.com/appWvzGc9WONctzyz/shr4E296XZd4B1wCh
 
 ## Herramientas
 n8n · Airtable · OpenAI GPT-4.1 mini · Slack
