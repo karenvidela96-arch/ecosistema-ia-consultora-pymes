@@ -1,0 +1,325 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "351e7a00-441b-4f51-b39e-a2e99155b92e",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appO54phsT7dL0S3l",
+          "mode": "id"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblz9hPVRlbaAwBEJ",
+          "mode": "id"
+        },
+        "filterByFormula": "AND({Aprobado}=1,{Status}='En revision')",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "3a8bf41c-bce1-4222-81d3-d7746d827927",
+      "name": "Pieza aprobada",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "d3RWwaHTXubJZhtE",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "eeb887dc-e6df-48e8-b89b-08bc29cae51c",
+              "name": "id",
+              "value": "={{ $('Pieza aprobada').first().json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "ca700abe-6b18-4170-aea5-8419a03b855e",
+              "name": "Status",
+              "value": "Publicado",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        672,
+        0
+      ],
+      "id": "1707bde6-2543-45cd-8309-d16f34c58ed3",
+      "name": "Preparar Cambio de Estado"
+    },
+    {
+      "parameters": {
+        "authentication": "airtableOAuth2Api",
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appO54phsT7dL0S3l",
+          "mode": "id"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblz9hPVRlbaAwBEJ",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "Aprobado": false
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Idea_Semilla",
+              "displayName": "Idea_Semilla",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Generando",
+                  "value": "Generando"
+                },
+                {
+                  "name": "En revision",
+                  "value": "En revision"
+                },
+                {
+                  "name": "Aprobado",
+                  "value": "Aprobado"
+                },
+                {
+                  "name": "Publicado",
+                  "value": "Publicado"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Borrador_Generado",
+              "displayName": "Borrador_Generado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Aprobado",
+              "displayName": "Aprobado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Ultima_ejecucion",
+              "displayName": "Ultima_ejecucion",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Hora_Modificacion",
+              "displayName": "Hora_Modificacion",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Ultima vez modificado sys",
+              "displayName": "Ultima vez modificado sys",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        896,
+        0
+      ],
+      "id": "8e0cfaa8-d224-4de0-9ef0-f4b49a5c5613",
+      "name": "Marcar como publicado",
+      "credentials": {
+        "airtableOAuth2Api": {
+          "id": "d3RWwaHTXubJZhtE",
+          "name": "Airtable account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0C5Z4USQ5N",
+          "mode": "list",
+          "cachedResultName": "contenido-aprobado"
+        },
+        "text": "=   ✅ Contenido aprobado y listo: *{{ $json.fields.Idea_Semilla }}*\n\n   {{ $json.fields.Borrador_Generado }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": true
+        }
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.7,
+      "position": [
+        448,
+        0
+      ],
+      "id": "b607da5b-a15d-4581-87b5-9e98c202faf0",
+      "name": "Notificar canal interno",
+      "webhookId": "fe319d77-dbd6-4ba9-aa6c-95ae0cefc77b",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "JqFFa3HFbBEvDeqo",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Pieza aprobada",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pieza aprobada": {
+      "main": [
+        [
+          {
+            "node": "Notificar canal interno",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Cambio de Estado": {
+      "main": [
+        [
+          {
+            "node": "Marcar como publicado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notificar canal interno": {
+      "main": [
+        [
+          {
+            "node": "Preparar Cambio de Estado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "fde7c11c-14c1-4f1c-83d0-2a920872be3a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "879abbeda01e028354ede658381e291bf3391689c74ce0d7a32ea837d8081eab"
+  },
+  "nodeGroups": [],
+  "id": "5v1uyFUjnCNfniLA",
+  "tags": []
+}
